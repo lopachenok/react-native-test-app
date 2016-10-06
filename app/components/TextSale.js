@@ -5,6 +5,7 @@ import {
   Text
 } from 'react-native';
 import styles from '../styles/styles';
+import { Input, InputGroup, ListItem } from 'native-base';
 
 export default class TextSale extends Component {
   constructor(props) {
@@ -18,15 +19,16 @@ export default class TextSale extends Component {
   render() {
     const textSale = this.props.textSale;
     return (
-      <View style={styles.field}>
-        <Text style={styles.text}>Введите сумму заказа с учетом скидки</Text>
-        <TextInput
-          style={styles.input}
+      <ListItem>
+        <InputGroup>
+        <Input
+          stackedLabel label='Введите сумму заказа с учетом скидки'
           onChangeText={this.changeSale.bind(this)}
           keyboardType={'numeric'}
           value={textSale.value}
         />
-      </View>
+        </InputGroup>
+      </ListItem>
 
     );
   }

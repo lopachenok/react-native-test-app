@@ -6,6 +6,7 @@ import {
   Text,
   TouchableHighlight
 } from 'react-native';
+import { Button, ListItem, Input, Content } from 'native-base';
 import styles from '../styles/styles';
 
 export default class InputList extends Component {
@@ -37,30 +38,25 @@ export default class InputList extends Component {
     const { textCount, textSale } = this.props;
 
     return (
-      <View style={styles.field}>
-        <Text style={styles.text}>Введите сумму вашего заказа</Text>
+      <Content style={styles.inputList}>
+        <Text>Введите сумму вашего заказа</Text>
         <ListView
         dataSource={dataSource.dataSource}
         renderRow={(rowData, sectionID, rowID) =>
-          <View>
-            <View style={styles.flexField}>
-              <TextInput style={styles.input}
-                       value={rowData}
+          <Content>
+          <ListItem>
+              <Input value={rowData}
                        onChangeText={this.changeItemValue.bind(this, rowID)}
                        keyboardType={'numeric'} />
               {rowID === '0' ?
-              <TouchableHighlight onPress={this.addItem.bind(this)}>
-                <Text style={styles.button}>+</Text>
-              </TouchableHighlight> :
-              <TouchableHighlight onPress={this.removeItem.bind(this, rowID)}>
-                <Text style={styles.remove}>X</Text>
-              </TouchableHighlight>}
-            </View>
-            <Text style={styles.text}>Цена с учетом скидки: {(textSale.value * 1 / textCount.value) * rowData}</Text>
-          </View>
+              <Button rounded success onPress={this.addItem.bind(this)} style={styles.button}> + </Button> :
+              <Button rounded danger onPress={this.removeItem.bind(this)} style={styles.button}> x </Button>}
+          </ListItem>
+            <Text style={styles.saleText}>Цена с учетом скидки: {(textSale.value * 1 / textCount.value) * rowData}</Text>
+</Content>
         }
       />
-      </View>
+      </Content>
     )
   }
 }
